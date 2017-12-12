@@ -8,7 +8,7 @@ from numpy.distutils.core import setup
 
 if __name__ == "__main__":
     ## version
-    version = '0.1.1'
+    version = '0.1.3'
 
     ## Download url
     d_url = 'https://github.com/JulienPeloton/git-r/archive/{}.tar.gz'.format(
@@ -27,8 +27,8 @@ if __name__ == "__main__":
         description=des,
         long_description=open('README.rst', 'r').read(),
         platforms='any',
-        packages=find_packages(),
-        scripts=['src/git-r'],
+        py_modules=['gitrconfig'],
+        scripts=['git-r'],
         classifiers=[
             'Development Status :: 3 - Alpha',
             'Environment :: Console',
