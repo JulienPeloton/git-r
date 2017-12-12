@@ -63,10 +63,14 @@ class Repository():
         self.path = Config._sections[self.reponame]['path']
 
     @print_path
-    def run(self, command, option=''):
+    def run(self, command, options=''):
         """
         """
         walkin = 'cd {};'.format(self.path)
         walkback = 'cd {};'.format(self.current_location)
+        com = 'git {} '.format(command)
+        for op in options:
+            com += op + ' '
+        com += ';'
 
-        os.system(walkin + 'git {} {};'.format(command, option) + walkback)
+        os.system(walkin + com + walkback)
