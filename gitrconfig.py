@@ -6,6 +6,7 @@ from __future__ import absolute_import, print_function
 import ConfigParser
 import commands
 import os
+import sys
 
 def print_path(func):
     """
@@ -14,12 +15,12 @@ def print_path(func):
 
     Parameters
     ----------
-    func: function
+    func : function
         The function for the decorator.
 
     Returns
     ----------
-    wrapper: function
+    wrapper : function
         The wrapped function.
 
     """
@@ -37,12 +38,12 @@ def checkrc(func):
 
     Parameters
     ----------
-    func: function
+    func : function
         The function for the decorator.
 
     Returns
     ----------
-    wrapper: function
+    wrapper : function
         The wrapped function.
 
     """
@@ -54,6 +55,7 @@ def checkrc(func):
         return res
     return wrapper
 
+
 class Repository():
     """ Generic class for repository """
     def __init__(self, reponame):
@@ -63,7 +65,7 @@ class Repository():
 
         Parameters
         ----------
-        reponame: string
+        reponame : string
             The name of the distant repo.
 
         """
@@ -72,8 +74,8 @@ class Repository():
 
         ## Define useful path
         self.current_location = commands.getoutput('pwd')
-        self.HOME = commands.getoutput('ls $HOME')
-        self.rcfile = commands.getoutput('ls $HOME/.git-rrc')
+        self.HOME = commands.getoutput('echo $HOME')
+        self.rcfile = commands.getoutput('echo $HOME/.git-rrc')
 
         ## Load the parameter(s) in the rc file for this repo
         self.readrc()
@@ -100,9 +102,9 @@ class Repository():
 
         Parameters
         ----------
-        command: string
+        command : string
             Git command to execute.
-        options: list of strings, optional
+        options : list of strings, optional
             Other option to git command. Can be a filename (if doing a diff),
             or a branch name (if doing a checkout) for example.
 
@@ -115,3 +117,58 @@ class Repository():
         com += ';'
 
         os.system(walkin + com + walkback)
+
+
+def add_repo_into_rcfile(repopath):
+    """
+    Add repo and path into the rcfile.
+    If the file doesn't exist, it will be created.
+
+    Parameters
+    ----------
+    repopath : string
+        The full path to the repo: /path/to/reponame
+
+    """
+    HOME = commands.getoutput('echo $HOME')
+    rcfn = '.git-rrc'
+    reponame = os.path.basename(repopath)
+
+    ## Check that the folder exists
+    msg = 'No folder at {}'.format(repopath)
+    assert os.path.isdir(repopath), AssertionError(msg)
+
+    ## Check that the folder is a git repo
+    gitrep = os.path.join(repopath, '.git')
+    msg = '{} is not a git repository.'.format(gitrep)
+    assert os.path.isdir(gitrep), AssertionError(msg)
+
+    ## Check if the .git-rrc exists
+    isrc = os.path.isfile(os.path.join(HOME, rcfn))
+    if not isrc:
+        print(".git-rrc does not exist. Now created at {}/.git-rrc.".format(
+            HOME))
+
+    Config = ConfigParser.ConfigParser()
+    Config.read(os.path.join(HOME, rcfn))
+
+    ## Check if the section already exists
+    if reponame in Config._sections:
+        print("+---------------------------+")
+        print("Repo already in the .git-rrc file!")
+        print("Path used is {}".format(Config._sections[reponame]['path']))
+        answer = raw_input("Do you want to overwrite it? [Y/n]")
+        print("+---------------------------+")
+
+        if answer in ['Y', 'y', 'yes', 'Yes']:
+            print("Overwrite...")
+        elif answer in ['n', 'No', 'N', 'no']:
+            print("Do not overwrite...")
+            sys.exit()
+    else:
+        Config.add_section(reponame)
+
+    Config._sections[reponame]['path'] = repopath
+
+    with open(os.path.join(HOME, rcfn), 'w+') as f:
+        Config.write(f)
