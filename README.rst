@@ -6,7 +6,7 @@ git-r
 
 What is git-r?
 ===============
-git-r is a python module to manage git repositories from a another folder.
+git-r is a python module to manage git repositories from a distant folder.
 
 
 Requirements

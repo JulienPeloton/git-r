@@ -1,3 +1,5 @@
+# Copyright 2017 Julien Peloton
+# Licensed under the GPL-3.0 License, see LICENSE file for details.
 ## Author: j.peloton@sussex.ac.uk
 from __future__ import division, absolute_import, print_function
 
