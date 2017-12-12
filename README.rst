@@ -32,15 +32,16 @@ The general usage is very simple
 
 ::
 
-    git-r <repo_name> <command> [option(s)]
+    git-r <repo_name> <command> [<options>]
 
-Note that `command` can be any git commands.
+Note that ``command`` can be any git commands.
 
-**Pull**
+Say now I have a repo at `/some/path/repo`. First, you need to create a .git-rrc file in
+your `$HOME` and register `repo` (see the example provided).
 
-Say I have a repo at `/some/path/repo`. First, you need to create a .git-rrc file in
-your `$HOME` and register `repo` (see the example provided). Then imagine I am
-working from a folder distant `/some/other/path/workspace` (but still the same machine!)
+**Example 1: Pull**
+
+Imagine I am working from a folder distant `/some/other/path/workspace` (but still the same machine!)
 and I want to pull the latest change from `repo`:
 
 ::
@@ -51,11 +52,9 @@ and I want to pull the latest change from `repo`:
     Already up-to-date.
     julien:workspace$
 
-**Changing branch**
+**Example 2: Changing branch**
 
-Say I have a repo at `/some/path/repo`. Assuming you didn't, you need to create a .git-rrc file in
-your `$HOME` and register `repo` (see the example provided). Then imagine I am
-working from a folder distant `/some/other/path/workspace` (but still the same machine!)
+Imagine I am working from a folder distant `/some/other/path/workspace` (but still the same machine!)
 and I want to switch from the `master` branch to `mybranch` branch in `repo`:
 
 ::
