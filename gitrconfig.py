@@ -4,7 +4,6 @@
 from __future__ import absolute_import, print_function
 
 import ConfigParser
-import commands
 import os
 import sys
 
@@ -73,9 +72,9 @@ class Repository():
         self.reponame = reponame
 
         ## Define useful path
-        self.current_location = commands.getoutput('pwd')
-        self.HOME = commands.getoutput('echo $HOME')
-        self.rcfile = commands.getoutput('echo $HOME/.git-rrc')
+        self.current_location = os.getcwd()
+        self.HOME = os.getenv('HOME')
+        self.rcfile = os.path.join(self.HOME, '.git-rrc')
 
         ## Load the parameter(s) in the rc file for this repo
         self.readrc()
@@ -130,8 +129,9 @@ def add_repo_into_rcfile(repopath):
         The full path to the repo: /path/to/reponame
 
     """
-    HOME = commands.getoutput('echo $HOME')
+    HOME = os.getenv('HOME')
     rcfn = '.git-rrc'
+    rcfnpath = os.path.join(HOME, rcfn)
     reponame = os.path.basename(repopath)
 
     ## Check that the folder exists
@@ -144,13 +144,13 @@ def add_repo_into_rcfile(repopath):
     assert os.path.isdir(gitrep), AssertionError(msg)
 
     ## Check if the .git-rrc exists
-    isrc = os.path.isfile(os.path.join(HOME, rcfn))
+    isrc = os.path.isfile(rcfnpath)
     if not isrc:
         print(".git-rrc does not exist. Now created at {}/.git-rrc.".format(
             HOME))
 
     Config = ConfigParser.ConfigParser()
-    Config.read(os.path.join(HOME, rcfn))
+    Config.read(rcfnpath)
 
     ## Check if the section already exists
     if reponame in Config._sections:
@@ -170,5 +170,5 @@ def add_repo_into_rcfile(repopath):
 
     Config._sections[reponame]['path'] = repopath
 
-    with open(os.path.join(HOME, rcfn), 'w+') as f:
+    with open(rcfnpath, 'w+') as f:
         Config.write(f)
