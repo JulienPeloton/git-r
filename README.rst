@@ -71,4 +71,4 @@ Support
 
 .. raw:: html
 
-    <img src="https://github.com/JulienPeloton/git-r/blob/master/erc.jpg" height="200px">
+    <img src="https://github.com/JulienPeloton/git-r/blob/master/pics/erc.jpg" height="200px">
