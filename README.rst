@@ -36,13 +36,13 @@ The general usage is very simple
 
 Note that ``command`` can be any git commands.
 
-Say now I have a repo at `/some/path/repo`. First, you need to create a .git-rrc file in
-your `$HOME` and register `repo` (see the example provided).
+Say now I have a repo at ``/some/path/repo``. First, you need to create a .git-rrc file in
+your ``$HOME`` and register ``repo`` (see the example provided).
 
 **Example 1: Pull**
 
-Imagine I am working from a folder distant `/some/other/path/workspace` (but still the same machine!)
-and I want to pull the latest change from `repo`:
+Imagine I am working from a folder distant ``/some/other/path/workspace`` (but still the same machine!)
+and I want to pull the latest change from ``repo``:
 
 ::
 
@@ -54,8 +54,8 @@ and I want to pull the latest change from `repo`:
 
 **Example 2: Changing branch**
 
-Imagine I am working from a folder distant `/some/other/path/workspace` (but still the same machine!)
-and I want to switch from the `master` branch to `mybranch` branch in `repo`:
+Imagine I am working from a folder distant ``/some/other/path/workspace`` (but still the same machine!)
+and I want to switch from the ``master`` branch to ``mybranch`` branch in ``repo``:
 
 ::
 
