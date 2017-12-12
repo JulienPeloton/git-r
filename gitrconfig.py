@@ -89,8 +89,8 @@ class Repository():
         Config = ConfigParser.ConfigParser()
         Config.read(self.rcfile)
 
-        msg = 'The repo {} is not registered in this file.'.format(
-            self.reponame)
+        msg = 'The repo <{}> is not registered in {}. '.format(
+            self.reponame, self.rcfile) + 'Run `git-r add_repo <repopath>`.'
         assert self.reponame in Config._sections, AssertionError(msg)
 
         self.path = Config._sections[self.reponame]['path']
