@@ -2,17 +2,13 @@
 # Copyright 2017 Julien Peloton
 # Licensed under the GPL-3.0 License, see LICENSE file for details.
 ## Author: j.peloton@sussex.ac.uk
+from setuptools import find_packages
 from numpy.distutils.core import setup
-from numpy.distutils.misc_util import Configuration
-
-def configuration(parent_package='', top_path=None):
-    config = Configuration('./', parent_package, top_path)
-    return config
 
 
 if __name__ == "__main__":
     ## version
-    version = '0.1.0'
+    version = '0.1.1'
 
     ## Download url
     d_url = 'https://github.com/JulienPeloton/git-r/archive/{}.tar.gz'.format(
@@ -21,7 +17,7 @@ if __name__ == "__main__":
     des = 'Manage git repo from a distant location (within the same machine)'
 
     setup(
-        configuration=configuration,
+        name='git-r',
         version=version,
         url='https://github.com/JulienPeloton/git-r',
         download_url=d_url,
@@ -31,8 +27,8 @@ if __name__ == "__main__":
         description=des,
         long_description=open('README.rst', 'r').read(),
         platforms='any',
-        py_module=['gitrconfig.py'],
-        scripts=['git-r'],
+        packages=find_packages(),
+        scripts=['src/git-r'],
         classifiers=[
             'Development Status :: 3 - Alpha',
             'Environment :: Console',
