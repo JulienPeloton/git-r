@@ -2,24 +2,20 @@
 # Copyright 2017 Julien Peloton
 # Licensed under the GPL-3.0 License, see LICENSE file for details.
 ## Author: j.peloton@sussex.ac.uk
-from __future__ import division, absolute_import, print_function
+from __future__ import absolute_import
 
 import sys
+
 from gitrconfig import Repository
 
 
 if __name__ == "__main__":
-    """
-    """
+    """ Run git-r! """
     ## Grab args
     reponame = sys.argv[1]
     command = sys.argv[2]
-    option = sys.argv[3:]
-
-    ## Handle no option case
-    if option == []:
-        option = ''
+    options = sys.argv[3:]
 
     ## Run the command
     r = Repository(reponame)
-    r.run(command, option)
+    r.run(command, options)

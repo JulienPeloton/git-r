@@ -1,7 +1,7 @@
 # Copyright 2017 Julien Peloton
 # Licensed under the GPL-3.0 License, see LICENSE file for details.
 ## Author: j.peloton@sussex.ac.uk
-from __future__ import division, absolute_import, print_function
+from __future__ import absolute_import, print_function
 
 import ConfigParser
 import commands
@@ -9,10 +9,22 @@ import os
 
 def print_path(func):
     """
+    Wrapper to print the path of the distant repository
+    To be used as a decorator.
+
+    Parameters
+    ----------
+    func: function
+        The function for the decorator.
+
+    Returns
+    ----------
+    wrapper: function
+        The wrapped function.
+
     """
     def wrapper(*args, **kwargs):
-        """
-        """
+        """ The wrapper """
         print('Repo: ', args[0].path)
         res = func(*args, **kwargs)
         return res
@@ -20,25 +32,40 @@ def print_path(func):
 
 def checkrc(func):
     """
+    Check that the .git-rrc exists. Raise an error if not.
+    To be used as a decorator.
+
+    Parameters
+    ----------
+    func: function
+        The function for the decorator.
+
+    Returns
+    ----------
+    wrapper: function
+        The wrapped function.
+
     """
     def wrapper(*args, **kwargs):
-        """
-        """
+        """ The wrapper """
         msg = 'Cannot find {}'.format(args[0].rcfile)
         assert os.path.isfile(args[0].rcfile), AssertionError(msg)
-
         res = func(*args, **kwargs)
-
         return res
     return wrapper
 
 class Repository():
-    """ """
-    def __init__(self, reponame=''):
+    """ Generic class for repository """
+    def __init__(self, reponame):
         """
-        Generic class for repositories.
+        Contains current path and path to the distant repository.
+        Mostly rely on os.system to wrap traditional git commands.
 
-        Note: should contain git commands used by all repo
+        Parameters
+        ----------
+        reponame: string
+            The name of the distant repo.
+
         """
         ## name of the repo
         self.reponame = reponame
@@ -54,6 +81,8 @@ class Repository():
     @checkrc
     def readrc(self):
         """
+        Check that the name of the repo is registered in the .git-rrc file.
+
         """
         Config = ConfigParser.ConfigParser()
         Config.read(self.rcfile)
@@ -65,8 +94,18 @@ class Repository():
         self.path = Config._sections[self.reponame]['path']
 
     @print_path
-    def run(self, command, options=''):
+    def run(self, command, options=['']):
         """
+        Routine to execute git command inside the distant repository.
+
+        Parameters
+        ----------
+        command: string
+            Git command to execute.
+        options: list of strings, optional
+            Other option to git command. Can be a filename (if doing a diff),
+            or a branch name (if doing a checkout) for example.
+
         """
         walkin = 'cd {};'.format(self.path)
         walkback = 'cd {};'.format(self.current_location)

@@ -13,7 +13,7 @@ and can be called from any location to make change to a particular git repositor
 Requirements
 ===============
 
-No special dependencies. Work for both python2.7 and python 3.X
+No special dependencies. Work for both python2.7 and python 3.X.
 
 Installation
 ===============
