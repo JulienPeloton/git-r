@@ -31,7 +31,8 @@ if __name__ == "__main__":
         description=des,
         long_description=open('README.rst', 'r').read(),
         platforms='any',
-        packages=[],
+        py_module=['gitrconfig.py'],
+        scripts=['git-r'],
         classifiers=[
             'Development Status :: 3 - Alpha',
             'Environment :: Console',
