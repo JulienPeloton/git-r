@@ -9,8 +9,8 @@ if __name__ == "__main__":
     """
     """
     ## Grab args
-    command = sys.argv[1]
-    reponame = sys.argv[2]
+    reponame = sys.argv[1]
+    command = sys.argv[2]
     option = sys.argv[3:]
 
     ## Handle no option case
