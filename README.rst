@@ -36,7 +36,7 @@ The general usage is very simple
 
 Note that `command` can be any git commands.
 
-** Pull **
+**Pull**
 
 Say I have a repo at `/some/path/repo`. First, you need to create a .git-rrc file in
 your `$HOME` and register `repo` (see the example provided). Then imagine I am
@@ -51,7 +51,7 @@ and I want to pull the latest change from `repo`:
     Already up-to-date.
     julien:workspace$
 
-** Changing branch **
+**Changing branch**
 
 Say I have a repo at `/some/path/repo`. Assuming you didn't, you need to create a .git-rrc file in
 your `$HOME` and register `repo` (see the example provided). Then imagine I am
@@ -64,7 +64,7 @@ and I want to switch from the `master` branch to `mybranch` branch in `repo`:
     Repo: /some/path/repo
     Switched to branch 'mybranch'
     Your branch is up-to-date with 'origin/mybranch'.
-    julien:workspace$ 
+    julien:workspace$
 
 
 Support
