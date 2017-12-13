@@ -2,6 +2,9 @@
 git-r
 =============================
 
+.. image:: https://travis-ci.org/JulienPeloton/git-r.svg?branch=master
+    :target: https://travis-ci.org/JulienPeloton/git-r
+
 .. contents:: **Table of Contents**
 
 What is git-r?
