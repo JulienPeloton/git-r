@@ -13,6 +13,7 @@ install:
 # Tests are inside modules (doctest)
 script:
     - ./coverage_and_test.sh
+    - git-r pull i_am_a_repo
 
 after_success:
     coveralls
