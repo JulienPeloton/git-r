@@ -1,1 +1,8 @@
 *.pyc
+.coverage
+MANIFEST
+build/
+dist/
+clean
+uploadme
+git_r.egg-info/

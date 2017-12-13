@@ -8,7 +8,7 @@ from numpy.distutils.core import setup
 
 if __name__ == "__main__":
     ## version
-    version = '0.1.3'
+    version = '0.1.4'
 
     ## Download url
     d_url = 'https://github.com/JulienPeloton/git-r/archive/{}.tar.gz'.format(
