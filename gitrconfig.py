@@ -3,7 +3,12 @@
 ## Author: j.peloton@sussex.ac.uk
 from __future__ import absolute_import, print_function
 
-import ConfigParser
+## All small caps for py3
+try:
+    import ConfigParser
+except ImportError:
+    import configparser
+
 import os
 import sys
 
@@ -73,6 +78,7 @@ class Repository():
         >>> where = 'toto/tutu'
         >>> reponame = clone_a_repo(address, where)
         >>> repopath = os.path.join(os.getcwd(), where, reponame)
+        >>> add_repo_into_rcfile(repopath, istest=True)
         >>> r = Repository(reponame)
 
         Make a pull
