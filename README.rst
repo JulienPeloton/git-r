@@ -47,7 +47,7 @@ git-r allows you to do that from the command line:
 ::
 
     julien:workspace$ git-r add_repo /some/path/repo
-    .git-rrc does not exist. Now created at /Users/julien/.git-rrc.
+    .git-rrc does not exist. Now created at $HOME/.git-rrc.
 
 This message will appear only once when the file is created.
 Then you can as many repo as you want. You can also overwrite the location of
@@ -64,7 +64,7 @@ an old repo:
 
 **Example 1: Pull**
 
-Imagine I am working from a folder distant ``/some/other/path/workspace`` (but still the same machine!)
+Imagine I am working from a distant folder ``/some/other/path/workspace`` (but still the same machine!)
 and I want to pull the latest change from ``repo``:
 
 ::
@@ -77,7 +77,7 @@ and I want to pull the latest change from ``repo``:
 
 **Example 2: Changing branch**
 
-Imagine I am working from a folder distant ``/some/other/path/workspace`` (but still the same machine!)
+Imagine I am working from a distant folder ``/some/other/path/workspace`` (but still the same machine!)
 and I want to switch from the ``master`` branch to ``mybranch`` branch in ``repo``:
 
 ::

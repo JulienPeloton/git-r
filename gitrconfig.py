@@ -95,7 +95,7 @@ class Repository():
         >>> r.run('checkout', ['test.py'])
 
         Change branch
-        >>> r.run('checkout', ['my_branch'])
+        >>> r.run('checkout', ['new_branch'])
 
         """
         ## name of the repo
