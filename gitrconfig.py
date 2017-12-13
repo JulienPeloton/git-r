@@ -67,6 +67,22 @@ class Repository():
         reponame : string
             The name of the distant repo.
 
+        Examples
+        ----------
+        >>> address = 'https://github.com/JulienPeloton/i_am_a_repo.git'
+        >>> where = 'toto/tutu'
+        >>> reponame = clone_a_repo(address, where)
+        >>> repopath = os.path.join(os.getcwd(), where, reponame)
+        >>> r = Repository(reponame)
+
+        Make a pull
+        >>> r.run('pull')
+        Repo:  /Users/julien/Documents/Workspace_postdoc/github/git-r/toto/tutu/i_am_a_repo
+
+        Make a diff
+        >>> r.run('checkout', ['test.py'])
+        Repo:  /Users/julien/Documents/Workspace_postdoc/github/git-r/toto/tutu/i_am_a_repo
+
         """
         ## name of the repo
         self.reponame = reponame
@@ -118,15 +134,28 @@ class Repository():
         os.system(walkin + com + walkback)
 
 
-def add_repo_into_rcfile(repopath):
+def add_repo_into_rcfile(repopath, istest=False):
     """
     Add repo and path into the rcfile.
-    If the file doesn't exist, it will be created.
+    If the rcfile doesn't exist, it will be created and stored in the $HOME.
 
     Parameters
     ----------
     repopath : string
         The full path to the repo: /path/to/reponame
+    istest : bool, optional
+        If True, skip printout message. Useful for test purposes.
+        Default is False.
+
+    Examples
+    ----------
+    >>> address = 'https://github.com/JulienPeloton/i_am_a_repo.git'
+    >>> where = 'toto/tutu'
+    >>> reponame = clone_a_repo(address, where)
+    >>> repopath = os.path.join(os.getcwd(), where, reponame)
+
+    ## istest set to False by default.
+    >>> add_repo_into_rcfile(repopath, istest=True)
 
     """
     HOME = os.getenv('HOME')
@@ -145,7 +174,7 @@ def add_repo_into_rcfile(repopath):
 
     ## Check if the .git-rrc exists
     isrc = os.path.isfile(rcfnpath)
-    if not isrc:
+    if not isrc and not istest:
         print(".git-rrc does not exist. Now created at {}/.git-rrc.".format(
             HOME))
 
@@ -154,17 +183,12 @@ def add_repo_into_rcfile(repopath):
 
     ## Check if the section already exists
     if reponame in Config._sections:
-        print("+---------------------------+")
-        print("Repo already in the .git-rrc file!")
-        print("Path used is {}".format(Config._sections[reponame]['path']))
-        answer = raw_input("Do you want to overwrite it? [Y/n]")
-        print("+---------------------------+")
-
-        if answer in ['Y', 'y', 'yes', 'Yes']:
-            print("Overwrite...")
-        elif answer in ['n', 'No', 'N', 'no']:
-            print("Do not overwrite...")
-            sys.exit()
+        if not istest:
+            print("+---------------------------+")
+            print("Repo already in the .git-rrc file!")
+            print("Old path was {}".format(Config._sections[reponame]['path']))
+            print("New path is {}".format(repopath))
+            print("+---------------------------+")
     else:
         Config.add_section(reponame)
 
@@ -172,3 +196,45 @@ def add_repo_into_rcfile(repopath):
 
     with open(rcfnpath, 'w+') as f:
         Config.write(f)
+
+def clone_a_repo(address, where=''):
+    """
+    Clone a repository into the machine.
+
+    Parameters
+    ----------
+    address : string
+        Url for the git repo.
+    where : string
+        Location on disk where the repo must be cloned.
+
+    Returns
+    ----------
+    reponame : string
+        Name of the repository.
+
+    Examples
+    ----------
+    >>> address = 'https://github.com/JulienPeloton/i_am_a_repo.git'
+    >>> where = 'toto/tutu'
+    >>> reponame = clone_a_repo(address, where)
+    """
+    plan = ''
+    if len(where) > 0:
+        plan += 'mkdir -p {};'.format(where)
+        plan += 'cd {};'.format(where)
+
+    reponame = os.path.basename(address).split(".")[0]
+    repopath = os.path.join(where, reponame)
+    if not os.path.isdir(repopath):
+        plan += 'git clone {};'.format(address)
+        os.system(plan)
+    else:
+        pass
+
+    return reponame
+
+
+if __name__ == "__main__":
+    import doctest
+    doctest.testmod()
