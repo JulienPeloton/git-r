@@ -30,7 +30,9 @@ def print_path(func):
     """
     def wrapper(*args, **kwargs):
         """ The wrapper """
-        print('Repo: ', args[0].path)
+        ## Do not print for tests
+        if not args[0].silent:
+            print('Repo: ', args[0].path)
         res = func(*args, **kwargs)
         return res
     return wrapper
@@ -62,7 +64,7 @@ def checkrc(func):
 
 class Repository():
     """ Generic class for repository """
-    def __init__(self, reponame):
+    def __init__(self, reponame, silent=False):
         """
         Contains current path and path to the distant repository.
         Mostly rely on os.system to wrap traditional git commands.
@@ -71,6 +73,8 @@ class Repository():
         ----------
         reponame : string
             The name of the distant repo.
+        silent : bool
+            If True, do not print out messages. Default is False.
 
         Examples
         ----------
@@ -79,19 +83,24 @@ class Repository():
         >>> reponame = clone_a_repo(address, where)
         >>> repopath = os.path.join(os.getcwd(), where, reponame)
         >>> add_repo_into_rcfile(repopath, istest=True)
-        >>> r = Repository(reponame)
+        >>> r = Repository(reponame, silent=True)
 
         Make a pull
         >>> r.run('pull')
-        Repo:  /Users/julien/Documents/Workspace_postdoc/github/git-r/toto/tutu/i_am_a_repo
+
+        Check the status
+        >>> r.run('status')
 
         Make a diff
         >>> r.run('checkout', ['test.py'])
-        Repo:  /Users/julien/Documents/Workspace_postdoc/github/git-r/toto/tutu/i_am_a_repo
+
+        Change branch
+        >>> r.run('checkout', ['my_branch'])
 
         """
         ## name of the repo
         self.reponame = reponame
+        self.silent = silent
 
         ## Define useful path
         self.current_location = os.getcwd()
