@@ -15,6 +15,12 @@ if __name__ == "__main__":
         version)
 
     des = 'Manage git repo from a distant location (within the same machine)'
+    long_des = """
+    git-r is a python module to manage git repositories from a distant folder.
+    We provide an executable ``git-r`` which is a wrapper around the
+    traditional ``git`` command and can be called from any location
+    to make change to a particular git repository on the machine.
+    """
 
     setup(
         name='git-r',
@@ -25,7 +31,7 @@ if __name__ == "__main__":
         author='Julien Peloton',
         author_email='j.peloton@sussex.ac.uk',
         description=des,
-        long_description=open('README.rst', 'r').read(),
+        long_description=long_des,
         platforms='any',
         py_modules=['gitrconfig'],
         scripts=['git-r'],

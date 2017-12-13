@@ -37,9 +37,9 @@ The general usage is very simple
 
 Note that ``command`` can be any git commands.
 
-Say now I have a repo at ``/some/path/repo``. First, you need to create the .git-rrc file in
-your ``$HOME`` and register ``repo`` (see the example provided). git-r allows you to that
-from the command line:
+Say now I have a repo at ``/some/path/repo``. First, you need to create the
+.git-rrc file in your ``$HOME`` and register ``repo`` (see the example provided).
+git-r allows you to do that from the command line:
 
 ::
 
@@ -47,15 +47,15 @@ from the command line:
     .git-rrc does not exist. Now created at /Users/julien/.git-rrc.
 
 This message will appear only once when the file is created.
-Then you can as many repo as you want. You can also overwrite location of
-old repo:
+Then you can as many repo as you want. You can also overwrite the location of
+an old repo:
 
 ::
 
     julien:workspace$ git-r add_repo /some/new/path/repo
     +---------------------------+
     Repo already in the .git-rrc file!
-    Path used is /Users/julien/Documents/Workspace_postdoc/github/s4cmb
+    Path used is /some/path/repo
     Do you want to overwrite it? [Y/n]
 
 
